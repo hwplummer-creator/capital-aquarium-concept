@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Capital Aquarium – Website Upgrade Proposal</title>
+<style>
+  :root{
+    --bg:#f6fafb; --card:#fff; --ink:#0b2530; --muted:#53707c; --line:#d8e5ea;
+    --teal:#0e8f86; --teal-d:#0a6b64; --coral:#e8603f; --good:#1f9d63; --bad:#c8432a; --warn:#b58105;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#07161d;--card:#0d2530;--ink:#e8f3f7;--muted:#9bb8c4;--line:#1b4558;--teal:#27d3c3;--teal-d:#27d3c3;--coral:#ff7a59;--good:#3ddc84;--bad:#ff8a73;--warn:#ffd166}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+  .wrap{width:min(1040px,100% - 32px);margin-inline:auto}
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 .5em}
+  h1{font-size:clamp(2rem,5vw,3.1rem)}
+  h2{font-size:clamp(1.5rem,3vw,2rem)}
+  section{padding:48px 0;border-top:1px solid var(--line)}
+  .eyebrow{color:var(--teal-d);font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .lead{font-size:1.15rem;color:var(--muted);max-width:66ch}
+  a{color:var(--teal-d)}
+  .cover{padding:64px 0 40px;border:0}
+  .by{color:var(--muted);margin-top:18px;font-size:.95rem}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  .btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;background:var(--coral);color:#fff}
+  .btn.alt{background:none;color:var(--ink);border:2px solid var(--line)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card h3{font-size:1.05rem}
+  .card ul{margin:0;padding-left:20px;color:var(--muted)}
+  .card li{margin:4px 0}
+  .stat b{display:block;font-size:2rem;color:var(--teal-d);letter-spacing:-.02em}
+  .stat span{color:var(--muted);font-size:.92rem}
+
+  /* comparison table */
+  .cmp{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:20px}
+  .cmp th,.cmp td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  .cmp tr:last-child td{border-bottom:0}
+  .cmp thead th{background:var(--bg);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+  .cmp td:first-child{font-weight:700;width:22%}
+  .cmp .now{color:var(--muted)}
+  .cmp .new{color:var(--ink)}
+  .tag{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-right:6px;vertical-align:1px}
+  .tag.bad{background:rgba(200,67,42,.13);color:var(--bad)}
+  .tag.warn{background:rgba(181,129,5,.15);color:var(--warn)}
+  .tag.good{background:rgba(31,157,99,.14);color:var(--good)}
+  @media(max-width:720px){
+    .cmp thead{display:none}
+    .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+    .cmp tr{border-bottom:1px solid var(--line);padding:8px 0}
+    .cmp td{border:0;padding:6px 16px}
+    .cmp td:first-child{width:100%}
+    .cmp td[data-l]::before{content:attr(data-l) ": ";font-weight:700;color:var(--teal-d)}
+  }
+
+  /* side by side viewer */
+  .frames{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+  @media(max-width:900px){.frames{grid-template-columns:1fr}}
+  .frame{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .frame h3{margin:0;padding:12px 16px;font-size:.95rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+  .frame iframe{width:100%;height:520px;border:0;background:#fff}
+  .frame small{color:var(--muted);padding:8px 16px;display:block}
+
+  .phases{counter-reset:p;display:grid;gap:14px;margin-top:20px}
+  .phase{display:grid;grid-template-columns:44px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .phase::before{counter-increment:p;content:counter(p);width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800}
+  .phase h3{margin:0 0 4px;font-size:1.05rem}
+  .phase p{margin:0;color:var(--muted)}
+  .note{border-left:4px solid var(--warn);background:rgba(181,129,5,.09);padding:12px 16px;border-radius:0 12px 12px 0;color:var(--ink);margin-top:20px;font-size:.95rem}
+  footer{padding:36px 0 60px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+  @media print{
+    :root{--bg:#fff}
+    .frames,.cta-row{display:none}
+    section{padding:24px 0;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Website upgrade proposal</div>
+    <h1>Capital Aquarium: a website as good as the shop</h1>
+    <p class="lead">Your store, your service and your livestock already earn glowing reviews. This proposal shows how a modern website could help new customers find that out in seconds, and let regulars shop and book from their phones.</p>
+    <p class="by">Prepared by [Your name], a customer of the store and the service team.<br>Concept only. Sample data is used for prices and stock.</p>
+    <div class="cta-row">
+      <a class="btn" href="#compare">See the comparison</a>
+      <a class="btn alt" href="capital-aquarium-concept.html" target="_blank" rel="noopener">Open the live concept</a>
+      <a class="btn alt demo-link" href="#" target="_blank" rel="noopener" style="display:none">Try the WordPress demo</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="eyebrow">What's already great</div>
+    <h2>The business is the strong part</h2>
+    <div class="grid3">
+      <div class="card stat"><b>40+ years</b><span>of combined aquarium experience, per the current site</span></div>
+      <div class="card stat"><b>Weekly</b><span>shipments, with livestock quarantined and treated before sale</span></div>
+      <div class="card stat"><b>Real praise</b><span>"Outstanding customer service", "made my dream of a 300 gallon aquarium come true"</span></div>
+    </div>
+    <p class="lead" style="margin-top:20px">The goal isn't to change who you are. It's to make the website show it.</p>
+  </div>
+</section>
+
+<section id="issues">
+  <div class="wrap">
+    <div class="eyebrow">What a visitor sees today</div>
+    <h2>Five things worth fixing on the current site</h2>
+    <p class="lead">These come from visiting capitalaquarium.com and checking its pages and code.</p>
+    <div class="grid2" style="margin-top:20px">
+      <div class="card"><h3><span class="tag bad">Fix first</span>Phone numbers don't dial</h3>
+        <p style="color:var(--muted);margin:0">The two phone links on the site are written as <code>tel+1-703-…</code> instead of <code>tel:+1703…</code> (a missing colon). On a phone, tapping the number doesn't start a call. The "ext 2" service link also points to a different number (703-822-1963) than the one shown on the page (703-439-0700 ext 2).</p></div>
+      <div class="card"><h3><span class="tag bad">Fix first</span>The top banner appeared empty</h3>
+        <p style="color:var(--muted);margin:0">When I loaded the homepage, the large area under the menu showed only a blank light-blue block, with no photo or message. It's the most valuable space on the page.</p></div>
+      <div class="card"><h3><span class="tag warn">Missed chance</span>No way to shop or book</h3>
+        <p style="color:var(--muted);margin:0">The store sells fish, corals, food and top equipment brands, but the site has no product browsing or reservation. There's no booking form for consultations or service visits either. Customers have to phone.</p></div>
+      <div class="card"><h3><span class="tag warn">Missed chance</span>Hard to find on Google</h3>
+        <p style="color:var(--muted);margin:0">The homepage has no meta description and no structured business data (hours, address and reviews that search engines can read). Three of the nine homepage images have no descriptive alt text.</p></div>
+    </div>
+    <div class="card" style="margin-top:20px"><h3><span class="tag warn">Dated</span>The look and the details</h3>
+      <p style="color:var(--muted);margin:0">The layout looks like it dates from the 2017 build (that's when the site's images were uploaded). Some images still load from a temporary transfer address rather than the main domain. The gallery page shows small thumbnails, so the best part of the business (the tanks) doesn't get to shine.</p></div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="eyebrow">Before and after</div>
+    <h2>Current site vs. the concept</h2>
+    <table class="cmp">
+      <thead><tr><th>Area</th><th>Today</th><th>Concept</th></tr></thead>
+      <tbody>
+        <tr><td>First impression</td>
+          <td class="now" data-l="Today"><span class="tag bad">Gap</span>Empty banner, small logo, text-heavy.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Better</span>Full-width reef photo, one clear headline, two clear buttons.</td></tr>
+        <tr><td>Calling the shop</td>
+          <td class="now" data-l="Today"><span class="tag bad">Broken</span>Phone links don't dial. Service link goes to a different number.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Fixed</span>Tap-to-call for retail (ext 1) and service (ext 2), plus a sticky call bar on phones.</td></tr>
+        <tr><td>Trust signals</td>
+          <td class="now" data-l="Today"><span class="tag warn">Buried</span>Experience and guarantees are in paragraphs.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Up front</span>40+ years, weekly quarantined livestock, pay per visit, and a livestock guarantee in one strip.</td></tr>
+        <tr><td>Maintenance info</td>
+          <td class="now" data-l="Today"><span class="tag warn">Wordy</span>Long text pages.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Scannable</span>Three-step flow and a checklist of what's included, with the free consultation as the first step.</td></tr>
+        <tr><td>Shopping</td>
+          <td class="now" data-l="Today"><span class="tag bad">None</span>Product lists are plain text.</td>
+          <td class="new" data-l="Concept"><span class="tag good">New</span>Filterable catalog, search, sale prices, and a reservation list for pickup or delivery with a service visit.</td></tr>
+        <tr><td>Stock &amp; new arrivals</td>
+          <td class="now" data-l="Today"><span class="tag bad">None</span>Customers must call or visit to ask what's in.</td>
+          <td class="new" data-l="Concept"><span class="tag good">New</span>Live inventory counts, a "New this week" row, and "Only N left" warnings.</td></tr>
+        <tr><td>Store hours</td>
+          <td class="now" data-l="Today"><span class="tag warn">Plain</span>Listed in a sidebar.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Smarter</span>"Open now" status and today's hours highlighted.</td></tr>
+        <tr><td>Photos</td>
+          <td class="now" data-l="Today"><span class="tag warn">Small</span>Thumbnails.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Showcase</span>Large gallery grid using the shop's own photos.</td></tr>
+        <tr><td>Findability</td>
+          <td class="now" data-l="Today"><span class="tag warn">Basic</span>No meta description or structured data.</td>
+          <td class="new" data-l="Concept"><span class="tag good">Planned</span>Descriptions, alt text and local-business data for Google. (Done in the real build, not in this demo.)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="see">
+  <div class="wrap">
+    <div class="eyebrow">See it side by side</div>
+    <h2>Same business, two websites</h2>
+    <div class="frames">
+      <div class="frame"><h3>Today <a href="https://capitalaquarium.com/" target="_blank" rel="noopener">Open ↗</a></h3>
+        <iframe src="https://capitalaquarium.com/" title="Current Capital Aquarium website" loading="lazy"></iframe>
+        <small>If this frame is blank, the site doesn't allow embedding. Use "Open".</small></div>
+      <div class="frame"><h3>Concept <a href="capital-aquarium-concept.html" target="_blank" rel="noopener">Open ↗</a></h3>
+        <iframe src="capital-aquarium-concept.html" title="Redesign concept" loading="lazy"></iframe>
+        <small>Try the shop: filter, add items, open the list.</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <div class="eyebrow">How it would be built</div>
+    <h2>On WordPress, with standard tools</h2>
+    <p class="lead">The site already runs on WordPress, so nothing needs to be rebuilt from scratch. The concept maps onto a modern theme, WooCommerce for the shop, and a handful of small plugins.</p>
+
+    <div class="cta-row" style="margin:16px 0 0"><a class="btn demo-link" href="#" target="_blank" rel="noopener" style="display:none">Try the working WordPress demo</a></div>
+    <p class="lead demo-note" style="display:none;font-size:.95rem;margin-top:10px">Opens a working WordPress and WooCommerce mockup in your browser. The first load takes about a minute. Nothing is saved, and all items and prices are sample data.</p>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="card"><h3>Foundation</h3>
+        <ul>
+          <li><strong>Theme:</strong> a fast block theme (Kadence, GeneratePress or Blocksy)</li>
+          <li><strong>SEO:</strong> Rank Math or Yoast, for descriptions and local-business data</li>
+          <li><strong>Speed:</strong> image optimizer (ShortPixel or Imagify) and caching (WP Rocket or LiteSpeed Cache)</li>
+          <li><strong>Safety:</strong> UpdraftPlus backups, Wordfence security, and a staging copy for testing changes</li>
+        </ul></div>
+      <div class="card"><h3>What the owner would manage</h3>
+        <ul>
+          <li>Add or edit products in the normal WordPress dashboard</li>
+          <li>Mark items "New arrival" to feature them in the weekly row</li>
+          <li>Set stock counts, and the "Only N left" warnings follow automatically</li>
+          <li>Review reservation requests in one inbox, then confirm by phone or email</li>
+        </ul></div>
+    </div>
+
+    <table class="cmp">
+      <thead><tr><th>Concept feature</th><th>WordPress approach</th></tr></thead>
+      <tbody>
+        <tr><td>Shop, filters, search</td><td data-l="Approach">WooCommerce plus a product-filter plugin or the built-in filter blocks</td></tr>
+        <tr><td>Reserve for pickup</td><td data-l="Approach">WooCommerce with online payment turned off and a "pay in store" method, or a quote-request plugin</td></tr>
+        <tr><td>Live inventory counts</td><td data-l="Approach">WooCommerce stock management, with a small snippet to total each category</td></tr>
+        <tr><td>"Only N left" warnings</td><td data-l="Approach">WooCommerce's low-stock setting and a few lines of code</td></tr>
+        <tr><td>New this week</td><td data-l="Approach">A "New arrivals" category or tag, shown with a product-list block</td></tr>
+        <tr><td>Booking consultations and service visits</td><td data-l="Approach">Amelia, Bookly or Fluent Booking, or a simple form plugin such as WPForms</td></tr>
+        <tr><td>Gallery</td><td data-l="Approach">The built-in gallery block, or Modula for a nicer grid</td></tr>
+        <tr><td>Reviews</td><td data-l="Approach">A Google reviews plugin such as Trustindex, or a testimonials block</td></tr>
+        <tr><td>Tap-to-call and "open now"</td><td data-l="Approach">Plain links for calling and a small snippet for hours. No plugin needed</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="card"><h3><span class="tag warn">Biggest question</span>Inventory accuracy</h3>
+        <p style="color:var(--muted);margin:0">Live counts are only useful if they match the shelves. That depends on what the store uses at the register. With <strong>Square</strong>, an official WooCommerce sync keeps stock in step. With another system, there may be a connector, or staff could update stock by spreadsheet. This answer decides whether the project is simple or complicated.</p></div>
+      <div class="card"><h3><span class="tag good">Sensible start</span>Treat livestock differently</h3>
+        <p style="color:var(--muted);margin:0">Fish and corals are one-of-a-kind and perishable. Reserve-only avoids online checkout, shipping and live-arrival problems. Supplies can sell normally, and big-ticket gear can stay "Ask in store", as in the concept.</p></div>
+    </div>
+    <div class="note">Plugin names are common, well-regarded options, not requirements. Features and pricing change, so these should be confirmed before any quote. Most of the core tools are free or inexpensive, so the main cost is setup time.</div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="wrap">
+    <div class="eyebrow">How it could happen</div>
+    <h2>A phased approach, with low risk</h2>
+    <p class="lead">The site runs on WordPress, so this can be done in steps without a risky all-at-once switch.</p>
+    <div class="phases">
+      <div class="phase"><div><h3>Quick fixes (about a day)</h3><p>Repair the phone links and the empty banner, add a meta description and alt text. These help immediately.</p></div></div>
+      <div class="phase"><div><h3>New design</h3><p>Apply the modern homepage, gallery, service pages and a booking request form for consultations and service visits.</p></div></div>
+      <div class="phase"><div><h3>Online shop</h3><p>Add a product catalog and reservation list. Start with "reserve for pickup" so no online payments are needed.</p></div></div>
+      <div class="phase"><div><h3>Inventory feed</h3><p>Connect stock counts and weekly arrivals to whatever the store uses to track inventory, or a simple dashboard the staff can update.</p></div></div>
+    </div>
+    <div class="note"><strong>Open questions for the owner:</strong> Who manages the site now? How is inventory tracked today? Should animals be reservable online, or only supplies? Pricing for each phase depends on the answers.</div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <div class="eyebrow">Next step</div>
+    <h2>Let's start small</h2>
+    <p class="lead">Even if nothing else happens, the phone-link fix is a few minutes of work and could be sending more calls your way this week. If you like where this is going, I'd be glad to talk through the concept in person at the store.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Independent concept prepared by a customer. Not commissioned by or affiliated with Capital Aquarium. Photos and business details are from capitalaquarium.com. Prices, stock and arrivals in the concept are sample data. Observations about the current site were made on October 11, 2026 and may change.
+  </div>
+</footer>
+
+<script>
+  // Builds the "Try the WordPress demo" link from wherever this page is hosted.
+  // It only shows when the page is served over http(s), because Playground needs a public blueprint URL.
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var bp = new URL('playground/blueprint.json', location.href).href;
+    var url = 'https://playground.wordpress.net/?blueprint-url=' + encodeURIComponent(bp);
+    document.querySelectorAll('.demo-link').forEach(function (a) { a.href = url; a.style.display = 'inline-block'; });
+    document.querySelectorAll('.demo-note').forEach(function (p) { p.style.display = 'block'; });
+  })();
+</script>
+</body>
+</html>

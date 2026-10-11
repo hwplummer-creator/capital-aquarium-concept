@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Capital Aquarium – Redesign Concept</title>
+<style>
+  :root{
+    --bg:#06161f; --bg2:#0a2330; --card:#0e2d3d; --line:#1b4558;
+    --text:#e8f3f7; --muted:#9bb8c4; --teal:#27d3c3; --coral:#ff7a59; --ink:#04121a;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+  h1,h2,h3{line-height:1.15;margin:0 0 .5em;letter-spacing:-.02em}
+  h2{font-size:clamp(1.7rem,3.5vw,2.4rem)}
+  section{padding:72px 0}
+  .eyebrow{color:var(--teal);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .lead{color:var(--muted);font-size:1.1rem;max-width:62ch}
+
+  .concept{background:#ffd966;color:#3a2f00;text-align:center;font-size:.82rem;padding:6px 12px;font-weight:600}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(6,22,31,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;text-decoration:none;font-size:1.15rem}
+  .brand svg{width:30px;height:30px}
+  nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+  nav a{text-decoration:none;color:var(--muted);font-size:.95rem}
+  nav a:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--coral);color:var(--ink)}
+  .btn-ghost{border-color:var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--teal)}
+  @media(max-width:820px){nav ul{display:none}}
+
+  .hero{position:relative;padding:0;min-height:78vh;display:flex;align-items:center;overflow:hidden;
+    background:radial-gradient(900px 500px at 70% 30%,#0f5a6b 0%,transparent 60%),linear-gradient(180deg,#073040,#06161f)}
+  .hero::before{content:"";position:absolute;inset:0;background:url("https://capitalaquarium.com/wp-content/uploads/photo-gallery/Reef-full-tank-shot.jpg") center/cover;opacity:.55}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,22,31,.95) 0%,rgba(6,22,31,.7) 45%,rgba(6,22,31,.15) 100%)}
+  .hero .wrap{position:relative;z-index:1;padding:80px 0}
+  .hero h1{font-size:clamp(2.2rem,5.5vw,4rem);max-width:15ch}
+  .hero p{color:#cfe3ea;font-size:1.2rem;max-width:52ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .open-pill{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-size:.9rem;color:var(--muted)}
+  .dot{width:10px;height:10px;border-radius:50%;background:#7a8c95}
+  .dot.on{background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.2)}
+
+  .trust{background:var(--bg2);border-block:1px solid var(--line);padding:28px 0}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+  .trust b{display:block;font-size:1.7rem;color:var(--teal);letter-spacing:-.02em}
+  .trust span{color:var(--muted);font-size:.9rem}
+  @media(max-width:720px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column}
+  .card .ico{width:46px;height:46px;border-radius:12px;background:rgba(39,211,195,.12);display:grid;place-items:center;margin-bottom:16px;color:var(--teal)}
+  .card p{color:var(--muted);margin:0 0 18px}
+  .card a.more{margin-top:auto;color:var(--teal);font-weight:700;text-decoration:none}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px;counter-reset:s}
+  .step{padding:24px;border-left:3px solid var(--teal);background:linear-gradient(90deg,rgba(39,211,195,.07),transparent)}
+  .step::before{counter-increment:s;content:"0" counter(s);color:var(--coral);font-weight:800;font-size:.9rem}
+  .step p{color:var(--muted);margin:4px 0 0}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+  .includes{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;max-width:760px}
+  .includes div{display:flex;gap:10px;color:var(--muted)}
+  .includes div::before{content:"✓";color:var(--teal);font-weight:800}
+  @media(max-width:620px){.includes{grid-template-columns:1fr}}
+
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:12px;margin-top:32px}
+  .gallery figure{margin:0;border-radius:14px;overflow:hidden;background:var(--card)}
+  .gallery img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gallery figure:hover img{transform:scale(1.07)}
+  .gallery .big{grid-column:span 2;grid-row:span 2}
+  @media(max-width:760px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
+  .brands{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .brands span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.88rem;color:var(--muted);background:var(--card)}
+  .shop-list{columns:2;margin:18px 0 0;padding-left:18px;color:var(--muted)}
+
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+  .quote{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .quote .stars{color:#ffc857;letter-spacing:3px;margin-bottom:8px}
+  .quote p{margin:0 0 12px;color:#d6e6ec}
+  .quote cite{color:var(--muted);font-style:normal;font-size:.9rem}
+  @media(max-width:900px){.quotes{grid-template-columns:1fr}}
+
+  .visit{background:linear-gradient(135deg,#0b3a4a,#0a2330);border-block:1px solid var(--line)}
+  .visit-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
+  @media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+  table{border-collapse:collapse;width:100%;max-width:380px}
+  td{padding:8px 0;border-bottom:1px solid var(--line);color:var(--muted)}
+  td:last-child{text-align:right}
+  tr.today td{color:var(--text);font-weight:700}
+  .phones{display:grid;gap:12px;margin-top:18px}
+  .phone{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;text-decoration:none}
+  .phone small{display:block;color:var(--muted)}
+  .phone strong{color:var(--teal)}
+
+  footer{padding:32px 0;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+  /* Online shop */
+  .cart-btn{position:relative;background:none;border:2px solid var(--line);color:var(--text);border-radius:999px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+  .cart-btn:hover{border-color:var(--teal)}
+  .cart-btn .n{background:var(--coral);color:var(--ink);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.8rem;padding:0 6px}
+  .nav-actions{display:flex;gap:10px;align-items:center}
+  .sample-note{display:inline-block;margin-top:10px;font-size:.82rem;color:#ffd966;border:1px dashed #6b5a1e;border-radius:8px;padding:4px 10px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 20px}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:8px 16px;font:inherit;font-size:.9rem;cursor:pointer}
+  .chip:hover{color:var(--text);border-color:var(--teal)}
+  .chip[aria-pressed="true"]{background:var(--teal);color:var(--ink);border-color:var(--teal);font-weight:700}
+  .shop-tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .search{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:10px 18px;font:inherit;min-width:240px}
+  .search:focus{outline:2px solid var(--teal)}
+  .products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:1000px){.products{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:720px){.products{grid-template-columns:repeat(2,1fr);gap:12px}}
+  @media(max-width:420px){.products{grid-template-columns:1fr}}
+  .product{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  .product .pic{aspect-ratio:4/3;background:linear-gradient(160deg,#0f5a6b,#08293a);display:grid;place-items:center;overflow:hidden}
+  .product .pic img{width:100%;height:100%;object-fit:cover}
+  .product .pic svg{width:56%;opacity:.9}
+  .product .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .tag{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+  .product h3{font-size:1rem;margin:0}
+  .product .meta{color:var(--muted);font-size:.85rem}
+  .product .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px}
+  .price{font-weight:800}
+  .add{background:var(--coral);color:var(--ink);border:0;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+  .add:hover{filter:brightness(1.1)}
+  .empty{color:var(--muted);padding:30px 0}
+  .drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+  .drawer-bg.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:var(--bg2);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .25s;z-index:41;display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer header{position:static;background:none;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .drawer h3{margin:0}
+  .x{background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer;line-height:1}
+  .lines{flex:1;overflow:auto;padding:8px 20px}
+  .line{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .line small{color:var(--muted)}
+  .qty{display:inline-flex;align-items:center;gap:8px;margin-top:6px}
+  .qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+  .rm{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;text-decoration:underline}
+  .drawer .foot{padding:18px 20px;border-top:1px solid var(--line)}
+  .drawer .total{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem;margin-bottom:12px}
+  .fulfil{display:grid;gap:6px;margin-bottom:14px;color:var(--muted);font-size:.9rem}
+  .fulfil label{display:flex;gap:8px;align-items:center}
+  .thanks{background:rgba(61,220,132,.12);border:1px solid #2c8a58;color:#bff0d5;border-radius:12px;padding:12px;font-size:.9rem;margin-top:12px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--teal);color:var(--ink);font-weight:700;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;z-index:50;pointer-events:none}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  /* Live inventory + new arrivals */
+  .inv{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:26px 0 8px}
+  .inv-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}
+  .live{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#3ddc84}
+  .live i{width:9px;height:9px;border-radius:50%;background:#3ddc84;animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}100%{box-shadow:0 0 0 10px rgba(61,220,132,0)}}
+  @media(prefers-reduced-motion:reduce){.live i{animation:none}}
+  .inv-top small{color:var(--muted)}
+  .inv-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  @media(max-width:900px){.inv-grid{grid-template-columns:repeat(3,1fr)}}
+  .inv-grid button{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;color:var(--muted);font:inherit;font-size:.82rem;cursor:pointer}
+  .inv-grid button:hover{border-color:var(--teal)}
+  .inv-grid b{display:block;font-size:1.6rem;color:var(--text);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .arr-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin:34px 0 12px}
+  .arr-head h3{margin:0;font-size:1.3rem}
+  .arr-head small{color:var(--muted)}
+  .arrivals{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity}
+  .arr{flex:0 0 220px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+  .arr .pic{height:120px;background:linear-gradient(160deg,#0f5a6b,#08293a);display:grid;place-items:center;overflow:hidden}
+  .arr .pic img{width:100%;height:100%;object-fit:cover}
+  .arr .pic svg{height:80%}
+  .arr .badge{position:absolute;top:10px;left:10px;background:var(--coral);color:var(--ink);font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:3px 9px;border-radius:999px}
+  .arr .b{padding:12px 14px 14px;display:grid;gap:2px}
+  .arr .b strong{font-size:.95rem}
+  .arr .b span{color:var(--muted);font-size:.82rem}
+  .arr .b .r{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+  .low{color:#ffb4a2!important;font-weight:700}
+
+  .mobile-bar{display:none}
+  @media(max-width:720px){
+    .mobile-bar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--bg2);border-top:1px solid var(--line)}
+    .mobile-bar a{padding:14px;text-align:center;font-weight:700;text-decoration:none}
+    .mobile-bar a:first-child{background:var(--coral);color:var(--ink)}
+    body{padding-bottom:54px}
+  }
+</style>
+</head>
+<body>
+
+<div class="concept">Redesign concept for discussion. Not the official Capital Aquarium website.</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M3 16c4-7 10-9 15-7 3 1 5 3 7 7-2 4-4 6-7 7-5 2-11 0-15-7z" fill="#27d3c3"/><path d="M25 16l5-5v10z" fill="#ff7a59"/><circle cx="10" cy="14" r="1.8" fill="#04121a"/></svg>
+      Capital Aquarium
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#store-online">Shop online</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Open reservation list">🛒 <span class="n" id="cartN">0</span></button>
+      <a class="btn btn-primary" href="tel:+17034390700,2">Call Service</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Northern Virginia &amp; Washington, DC</div>
+      <h1>An aquarium that looks great between visits, too.</h1>
+      <p>Aquarium installation, maintenance, and livestock from a team with over 40 years of hands-on experience. You enjoy the tank. We handle the rest.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="tel:+17034390700,2">Book a free consultation</a>
+        <a class="btn btn-ghost" href="#shop">Visit the store</a>
+      </div>
+      <div class="open-pill"><span class="dot" id="dot"></span><span id="openText">Retail store hours below</span></div>
+    </div>
+  </div>
+
+  <div class="trust">
+    <div class="wrap trust-grid">
+      <div><b>40+ yrs</b><span>aquarium experience</span></div>
+      <div><b>Weekly</b><span>quarantined livestock shipments</span></div>
+      <div><b>Pay per visit</b><span>no long-term contract</span></div>
+      <div><b>Guaranteed</b><span>livestock with maintenance</span></div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="eyebrow">What we do</div>
+      <h2>Everything for a healthy, beautiful tank</h2>
+      <p class="lead">Home or office, freshwater or reef. Start with a free consultation and we'll build a plan around your tank and your goals.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg></div>
+          <h3>Installation</h3>
+          <p>We'll sit down with you to review tank sizes, cabinet styles, and livestock options. Then we handle the whole setup from start to finish.</p>
+          <a class="more" href="#contact-cta">Plan my tank →</a>
+        </article>
+        <article class="card">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12z"/></svg></div>
+          <h3>Maintenance</h3>
+          <p>Weekly, biweekly, or monthly visits. Water changes, glass, filters, skimmers and pumps, plus coral and plant care.</p>
+          <a class="more" href="#how">How it works →</a>
+        </article>
+        <article class="card">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l2-5h14l2 5M4 9v11h16V9M9 20v-6h6v6"/></svg></div>
+          <h3>Retail store</h3>
+          <p>Saltwater and freshwater fish, corals, invertebrates, live rock, plants, frozen foods, and top-tier equipment, with advice you can trust.</p>
+          <a class="more" href="#shop">See what we carry →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="store-online">
+    <div class="wrap">
+      <div class="eyebrow">Shop online · reserve for pickup</div>
+      <h2>Browse our livestock &amp; gear</h2>
+      <p class="lead">Pick your animals and equipment, send a reservation request, and we'll have everything ready at the store or bring it with your next service visit.</p>
+      <span class="sample-note">Concept demo: sample items, prices and stock. Real inventory would come from the store.</span>
+
+      <div class="inv" aria-label="Live inventory">
+        <div class="inv-top"><span class="live"><i></i> Live inventory</span><small id="invStamp"></small></div>
+        <div class="inv-grid" id="invGrid"></div>
+      </div>
+
+      <div class="arr-head"><h3>New this week</h3><small>Fresh from our weekly shipment, quarantined before sale</small></div>
+      <div class="arrivals" id="arrivals"></div>
+
+      <div class="shop-tools" style="margin-top:26px">
+        <div class="filters" id="filters" role="group" aria-label="Filter products"></div>
+        <input class="search" id="search" type="search" placeholder="Search fish, corals, brands…" aria-label="Search products">
+      </div>
+      <div class="filters" id="quick" role="group" aria-label="Quick filters" style="margin-top:-6px"></div>
+
+      <div class="products" id="products"></div>
+      <div class="empty" id="empty" hidden>Nothing matches that search. Try another filter, or call us. We can often source it.</div>
+    </div>
+  </section>
+
+  <section id="how" style="background:var(--bg2);border-block:1px solid var(--line)">
+    <div class="wrap">
+      <div class="eyebrow">Maintenance made easy</div>
+      <h2>You enjoy the tank. We do the work.</h2>
+      <div class="steps">
+        <div class="step"><h3>Free consultation</h3><p>We look at your tank and talk through your goals and schedule.</p></div>
+        <div class="step"><h3>Custom plan</h3><p>Weekly, biweekly, every three weeks, or monthly, whatever suits your tank.</p></div>
+        <div class="step"><h3>Pay per visit</h3><p>A standard labor fee per visit. Food, media, and livestock are billed only as needed.</p></div>
+      </div>
+      <div class="includes">
+        <div>Water changes with RO water and quality salt included</div>
+        <div>Filter, skimmer, and pump cleaning</div>
+        <div>Inside and outside glass cleaning</div>
+        <div>Coral and plant care</div>
+        <div>Livestock and equipment delivered to you</div>
+        <div>Lighting, top-off, and feeding automation</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="eyebrow">Our work</div>
+      <h2>Tanks we're proud of</h2>
+      <div class="gallery">
+        <figure class="big"><img loading="lazy" alt="Full reef tank" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/Reef-full-tank-shot.jpg"></figure>
+        <figure><img loading="lazy" alt="Zoanthid coral" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/zoanthussp3.jpg"></figure>
+        <figure><img loading="lazy" alt="Rhodactis mushroom coral" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/Rhodactissp1.jpg"></figure>
+        <figure><img loading="lazy" alt="Rainbow montipora" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/Rainbow-Monti.jpg"></figure>
+        <figure><img loading="lazy" alt="Orange Rhodactis mushroom" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/Orange-Rhodactis-Mushroom.jpg"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" style="background:var(--bg2);border-block:1px solid var(--line)">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow">The store</div>
+        <h2>Expert advice, healthy livestock, proven gear</h2>
+        <p class="lead">We work with every kind of tank, so we know which products really hold up. Everything is quarantined and treated before it reaches you.</p>
+        <ul class="shop-list">
+          <li>Saltwater fish</li><li>Freshwater fish</li><li>Corals</li><li>Invertebrates</li>
+          <li>Live rock</li><li>Live plants</li><li>Frozen foods</li><li>Dry goods &amp; equipment</li>
+        </ul>
+        <div class="brands">
+          <span>Apex Controllers</span><span>Radion LED</span><span>VorTech Pumps</span><span>Maxspect Gyre</span>
+          <span>Kessil</span><span>Reef Octopus</span><span>Eshopps</span><span>New Life Spectrum</span>
+          <span>Salifert</span><span>Trigger Systems</span><span>Geo's Reef</span><span>LRS Frozen Foods</span>
+        </div>
+      </div>
+      <div class="gallery" style="grid-template-columns:1fr 1fr;grid-auto-rows:170px;margin:0">
+        <figure><img loading="lazy" alt="Store livestock" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/IMG_20170219_162727512.jpg"></figure>
+        <figure><img loading="lazy" alt="Store display" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/IMG_20170204_172731961.jpg"></figure>
+        <figure class="big" style="grid-column:span 2;grid-row:span 1"><img loading="lazy" alt="Aquarium display" src="https://capitalaquarium.com/wp-content/uploads/photo-gallery/IMG_20161125_085753003B-e1491741682725.jpg"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="eyebrow">Customer reviews</div>
+      <h2>Why customers keep coming back</h2>
+      <div class="quotes">
+        <div class="quote"><div class="stars">★★★★★</div><p>"Great service, very knowledgeable, made my dream of getting a 300 gallon aquarium come true!"</p><cite>Brian R.</cite></div>
+        <div class="quote"><div class="stars">★★★★★</div><p>"Outstanding customer service and very knowledgeable staff. Additionally, they have great products and equipment. Because of them I have a renewed love for the hobby."</p><cite>Milton J.</cite></div>
+        <div class="quote"><div class="stars">★★★★★</div><p>"The best place around. Everyone there is extremely helpful and polite. I will try to come back every week."</p><cite>Michael M.</cite></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap visit-grid">
+      <div>
+        <div class="eyebrow">Visit or call</div>
+        <h2>Come see the fish</h2>
+        <p class="lead">8825 Commerce Ct, Manassas, VA 20110. Near Centreville Rd, just south of Liberia Ave, directly behind the Wendy's.</p>
+        <div class="phones">
+          <a class="phone" href="tel:+17034390700,1"><span><small>Retail</small><strong>703-439-0700 ext 1</strong></span><span>Call →</span></a>
+          <a class="phone" href="tel:+17034390700,2" id="contact-cta"><span><small>Service &amp; maintenance</small><strong>703-439-0700 ext 2</strong></span><span>Call →</span></a>
+        </div>
+        <div class="cta"><a class="btn btn-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=8825+Commerce+Ct+Manassas+VA+20110">Get directions</a></div>
+      </div>
+      <div>
+        <h3>Retail hours</h3>
+        <table id="hours">
+          <tr data-d="3"><td>Wednesday</td><td>12 – 7 PM</td></tr>
+          <tr data-d="4"><td>Thursday</td><td>12 – 7 PM</td></tr>
+          <tr data-d="5"><td>Friday</td><td>12 – 7 PM</td></tr>
+          <tr data-d="6"><td>Saturday</td><td>10 AM – 6 PM</td></tr>
+          <tr data-d="0"><td>Sunday</td><td>11 AM – 5 PM</td></tr>
+          <tr data-d="1"><td>Monday</td><td>Closed</td></tr>
+          <tr data-d="2"><td>Tuesday</td><td>Closed</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Capital Aquarium · 8825 Commerce Ct, Manassas, VA 20110</span>
+    <span>Redesign concept. Content and photos from capitalaquarium.com</span>
+  </div>
+</footer>
+
+<div class="drawer-bg" id="bg"></div>
+<aside class="drawer" id="drawer" aria-label="Reservation list" aria-hidden="true">
+  <header><h3>Your reservation list</h3><button class="x" id="closeCart" aria-label="Close">×</button></header>
+  <div class="lines" id="lines"></div>
+  <div class="foot">
+    <div class="total"><span>Estimated total</span><span id="total">$0.00</span></div>
+    <div class="fulfil">
+      <label><input type="radio" name="f" checked> Pick up at the store</label>
+      <label><input type="radio" name="f"> Deliver with my next service visit</label>
+    </div>
+    <button class="btn btn-primary" style="width:100%" id="send">Send reservation request</button>
+    <div class="thanks" id="thanks" hidden>Concept demo: in the live site this would send your list to the store. They'd confirm availability and final pricing by phone or email. Nothing was sent.</div>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="mobile-bar"><a href="tel:+17034390700,2">Call Service</a><a href="#visit">Hours &amp; Directions</a></div>
+
+<script>
+  // Highlight today's row and show an open/closed status based on the visitor's local time.
+  (function(){
+    var hours={0:[11,17],1:null,2:null,3:[12,19],4:[12,19],5:[12,19],6:[10,18]};
+    var now=new Date(), d=now.getDay(), h=now.getHours()+now.getMinutes()/60;
+    var row=document.querySelector('#hours tr[data-d="'+d+'"]'); if(row) row.className='today';
+    var t=hours[d], dot=document.getElementById('dot'), txt=document.getElementById('openText');
+    var fmt=function(x){var s=x>=12?'PM':'AM',n=x%12||12;return n+' '+s;};
+    if(t && h>=t[0] && h<t[1]){dot.className='dot on';txt.textContent='Store is open now · until '+fmt(t[1]);}
+    else{txt.textContent=(t && h<t[0])?'Store opens today at '+fmt(t[0]):'Store is closed now · see hours below';}
+  })();
+</script>
+
+<script>
+(function(){
+  var U='https://capitalaquarium.com/wp-content/uploads/';
+  var G=U+'photo-gallery/';
+  var B=function(f){return 'https://i0.wp.com/capitalaquarium.com/wp-content/uploads/2017/04/'+f+'?fit=990%2C400&ssl=1';};
+  // Sample catalog. Real inventory and pricing would come from the store.
+  // price:null means "ask in store". c = icon colors for items without a photo.
+  var P=[
+    {id:1,n:'Green Zoanthid Colony Frag',cat:'Corals',b:'Aquacultured',p:29,img:G+'zoanthussp3.jpg',stock:'In stock'},
+    {id:2,n:'Orange Rhodactis Mushroom',cat:'Corals',b:'Aquacultured',p:24,img:G+'Orange-Rhodactis-Mushroom.jpg',stock:'In stock'},
+    {id:3,n:'Rainbow Montipora Frag',cat:'Corals',b:'Aquacultured',p:39,was:49,img:G+'Rainbow-Monti.jpg',stock:'Weekly special'},
+    {id:4,n:'Rhodactis Mushroom Coral',cat:'Corals',b:'Aquacultured',p:34,img:G+'Rhodactissp1.jpg',stock:'In stock'},
+    {id:5,n:'Captive-Bred Ocellaris Clownfish',cat:'Saltwater Fish',b:'Quarantined',p:24.99,c:['#ff7a59','#fff'],stock:'In stock'},
+    {id:6,n:'Yellow Tang',cat:'Saltwater Fish',b:'Quarantined',p:59.99,was:69.99,c:['#ffd23f','#f3a712'],stock:'Weekly special'},
+    {id:7,n:'Royal Gramma',cat:'Saltwater Fish',b:'Quarantined',p:29.99,c:['#9b5de5','#ffd23f'],stock:'In stock'},
+    {id:8,n:'Cardinal Tetra (school of 6)',cat:'Freshwater Fish',b:'Quarantined',p:14.99,c:['#38b6ff','#e63946'],stock:'In stock'},
+    {id:9,n:'Bristlenose Pleco',cat:'Freshwater Fish',b:'Quarantined',p:12.99,c:['#8d6e63','#d7ccc8'],stock:'In stock'},
+    {id:10,n:'Fire Shrimp',cat:'Inverts',b:'Quarantined',p:24,img:U+'2017/04/Fire-Shrimp-e1491140348953.jpg',stock:'In stock'},
+    {id:11,n:'Emerald Crab',cat:'Inverts',b:'Clean-up crew',p:9.99,c:['#2a9d8f','#76c893'],stock:'In stock'},
+    {id:12,n:'Anubias Nana',cat:'Plants',b:'Live plant',p:9.99,c:['#2a9d8f','#76c893'],plant:1,stock:'In stock'},
+    {id:13,n:'Java Fern',cat:'Plants',b:'Live plant',p:8.99,c:['#52b788','#95d5b2'],plant:1,stock:'In stock'},
+    {id:14,n:'Marine Formula Fish Food',cat:'Food & Supplies',b:'New Life Spectrum',p:19.99,img:B('new-life-spectrum-fish-food-e1492134924732.jpg'),stock:'In stock'},
+    {id:15,n:'Frozen Reef Blend',cat:'Food & Supplies',b:'LRS',p:9.99,c:['#38b6ff','#ff7a59'],food:1,stock:'In stock'},
+    {id:16,n:'Alkalinity Test Kit',cat:'Food & Supplies',b:'Salifert',p:24.99,c:['#27d3c3','#ffd23f'],food:1,stock:'In stock'},
+    {id:17,n:'Apex Aquarium Controller',cat:'Equipment',b:'Neptune Apex',p:null,img:B('Apex-Slide-e1491146446352.jpg'),stock:'Ask in store'},
+    {id:18,n:'Radion LED Light',cat:'Equipment',b:'EcoTech',p:null,img:B('Radion-G4-Slide-e1491146390663.jpg'),stock:'Ask in store'},
+    {id:19,n:'VorTech Pump',cat:'Equipment',b:'EcoTech',p:null,img:B('VorTech-Pumps-e1491142787287.jpg'),stock:'Ask in store'},
+    {id:20,n:'Kessil LED Light',cat:'Equipment',b:'Kessil',p:null,img:B('Kessil-Slide-e1491146428662.jpg'),stock:'Ask in store'},
+    {id:21,n:'Protein Skimmer',cat:'Equipment',b:'Reef Octopus',p:null,img:B('reef-octopus-e1492045187389.jpg'),stock:'Ask in store'},
+    {id:22,n:'Protein Skimmer',cat:'Equipment',b:'Eshopps',p:null,img:B('eshopps-e1492045126267.jpg'),stock:'Ask in store'}
+  ];
+  // Sample stock counts and this week's arrivals. In a real build these come from the store's inventory system.
+  var QTY={1:8,2:5,3:12,4:6,5:14,6:3,7:7,8:30,9:6,10:9,11:11,12:15,13:20,14:25,15:18,16:9};
+  var NEW=[4,6,7,10,12];
+  P.forEach(function(x){x.qty=QTY[x.id]===undefined?null:QTY[x.id];});
+  function stockText(x){
+    if(x.qty===null) return 'Ask in store';
+    if(x.qty<=3) return '<span class="low">Only '+x.qty+' left</span>';
+    return x.was?'Weekly special':'In stock';
+  }
+  var CATS=['All','Corals','Saltwater Fish','Freshwater Fish','Inverts','Plants','Food & Supplies','Equipment'];
+  var state={cat:'All',quick:'',q:''};
+  var cart={}; // id -> qty
+  var $=function(s){return document.querySelector(s)};
+  var money=function(x){return '$'+x.toFixed(2)};
+
+  function fishSvg(c,kind){
+    var a=c[0],b=c[1];
+    if(kind==='plant') return '<svg viewBox="0 0 100 100"><path d="M50 95C50 60 30 45 20 15c25 8 33 28 30 50 3-30 15-48 35-55-5 30-18 45-35 85z" fill="'+a+'"/><path d="M50 95C48 70 62 55 78 40" stroke="'+b+'" stroke-width="3" fill="none"/></svg>';
+    if(kind==='food') return '<svg viewBox="0 0 100 100"><rect x="30" y="18" width="40" height="66" rx="8" fill="'+a+'"/><rect x="30" y="18" width="40" height="14" rx="5" fill="'+b+'"/><rect x="38" y="44" width="24" height="22" rx="4" fill="#06161f" opacity=".35"/></svg>';
+    return '<svg viewBox="0 0 100 100"><path d="M8 50c10-20 30-28 50-20 10 4 18 12 22 20-4 8-12 16-22 20-20 8-40 0-50-20z" fill="'+a+'"/><path d="M80 50l16-16v32z" fill="'+b+'"/><path d="M40 32v36M54 30v40" stroke="'+b+'" stroke-width="5" opacity=".7"/><circle cx="26" cy="46" r="3.5" fill="#06161f"/></svg>';
+  }
+  function matches(x){
+    if(state.cat!=='All'&&x.cat!==state.cat) return false;
+    if(state.quick==='sale'&&!x.was) return false;
+    if(state.quick==='u50'&&!(x.p!==null&&x.p<50)) return false;
+    if(state.quick==='live'&&['Corals','Saltwater Fish','Freshwater Fish','Inverts','Plants'].indexOf(x.cat)<0) return false;
+    if(state.q){var s=(x.n+' '+x.b+' '+x.cat).toLowerCase(); if(s.indexOf(state.q)<0) return false;}
+    return true;
+  }
+  function render(){
+    var list=P.filter(matches);
+    $('#products').innerHTML=list.map(function(x){
+      var pic=x.img?'<img loading="lazy" alt="'+x.n+'" src="'+x.img+'">':fishSvg(x.c,x.plant?'plant':x.food?'food':'fish');
+      var price=x.p===null?'<span class="price" style="font-weight:600;color:var(--muted)">Ask in store</span>'
+        :'<span class="price">'+money(x.p)+(x.was?' <s style="color:var(--muted);font-weight:400;font-size:.85em">'+money(x.was)+'</s>':'')+'</span>';
+      return '<article class="product"><div class="pic">'+pic+'</div><div class="body"><span class="tag">'+x.cat+(x.was?' · Sale':'')+'</span><h3>'+x.n+'</h3><span class="meta">'+x.b+' · '+stockText(x)+'</span><div class="row">'+price+'<button class="add" data-id="'+x.id+'">Add</button></div></div></article>';
+    }).join('');
+    $('#empty').hidden=list.length>0;
+  }
+  function chips(){
+    $('#filters').innerHTML=CATS.map(function(c){return '<button class="chip" data-cat="'+c+'" aria-pressed="'+(state.cat===c)+'">'+c+'</button>'}).join('');
+    var Q=[['','Everything'],['sale','Weekly specials'],['u50','Under $50'],['live','Live animals & plants']];
+    $('#quick').innerHTML=Q.map(function(q){return '<button class="chip" data-q="'+q[0]+'" aria-pressed="'+(state.quick===q[0])+'">'+q[1]+'</button>'}).join('');
+  }
+  function drawCart(){
+    var ids=Object.keys(cart), n=0, total=0, ask=false;
+    $('#lines').innerHTML=ids.length?ids.map(function(id){
+      var x=P.filter(function(p){return p.id==id})[0], q=cart[id]; n+=q;
+      if(x.p===null) ask=true; else total+=x.p*q;
+      return '<div class="line"><div><strong>'+x.n+'</strong><br><small>'+x.b+'</small><div class="qty"><button data-d="-1" data-id="'+id+'" aria-label="Fewer">−</button>'+q+'<button data-d="1" data-id="'+id+'" aria-label="More">+</button></div></div><div style="text-align:right">'+(x.p===null?'<small>Ask in store</small>':money(x.p*q))+'<br><button class="rm" data-rm="'+id+'">Remove</button></div></div>';
+    }).join(''):'<p class="empty">Your list is empty. Add a few favorites.</p>';
+    $('#cartN').textContent=n;
+    $('#total').textContent=money(total)+(ask?' + quotes':'');
+    $('#thanks').hidden=true;
+  }
+  function toggle(open){
+    $('#drawer').classList.toggle('open',open); $('#bg').classList.toggle('open',open);
+    $('#drawer').setAttribute('aria-hidden',!open);
+  }
+  function toast(t){var e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('show')},1600);}
+
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.dataset.cat){state.cat=t.dataset.cat;chips();render();}
+    else if(t.dataset.q!==undefined&&t.closest('#quick')){state.quick=t.dataset.q;chips();render();}
+    else if(t.classList.contains('add')){
+      var id=t.dataset.id, item=P.filter(function(p){return p.id==id})[0], have=cart[id]||0;
+      if(item.qty!==null&&have>=item.qty){toast('Only '+item.qty+' available');return;}
+      cart[id]=have+1;drawCart();toast('Added to your list');
+    }
+    else if(t.closest('[data-inv]')){state.cat=t.closest('[data-inv]').dataset.inv;state.quick='';chips();render();document.getElementById('products').scrollIntoView({behavior:'smooth',block:'start'});}
+    else if(t.dataset.d){var i=t.dataset.id;cart[i]+=+t.dataset.d;if(cart[i]<1)delete cart[i];drawCart();}
+    else if(t.dataset.rm){delete cart[t.dataset.rm];drawCart();}
+    else if(t.closest('#cartBtn')) toggle(true);
+    else if(t.id==='closeCart'||t.id==='bg') toggle(false);
+    else if(t.id==='send'){ if(Object.keys(cart).length) $('#thanks').hidden=false; else toast('Add something first'); }
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+  $('#search').addEventListener('input',function(e){state.q=e.target.value.trim().toLowerCase();render();});
+  function inventory(){
+    var sum=function(cats){return P.reduce(function(a,x){return a+(cats.indexOf(x.cat)>=0&&x.qty?x.qty:0)},0)};
+    var T=[['Corals','Live corals'],['Saltwater Fish','Saltwater fish'],['Freshwater Fish','Freshwater fish'],['Inverts','Inverts'],['Plants','Live plants'],['Food & Supplies','Foods & supplies']];
+    $('#invGrid').innerHTML=T.map(function(t){return '<button data-inv="'+t[0]+'"><b>'+sum([t[0]])+'</b>'+t[1]+'</button>'}).join('');
+    var d=new Date();
+    $('#invStamp').textContent='Updated '+d.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+  }
+  function arrivals(){
+    $('#arrivals').innerHTML=NEW.map(function(id){
+      var x=P.filter(function(p){return p.id===id})[0];
+      var pic=x.img?'<img loading="lazy" alt="'+x.n+'" src="'+x.img+'">':fishSvg(x.c,x.plant?'plant':x.food?'food':'fish');
+      return '<article class="arr"><span class="badge">NEW</span><div class="pic">'+pic+'</div><div class="b"><strong>'+x.n+'</strong><span>'+x.cat+' · '+stockText(x)+'</span><div class="r"><span class="price" style="color:var(--text)">'+money(x.p)+'</span><button class="add" data-id="'+x.id+'">Add</button></div></div></article>';
+    }).join('');
+  }
+  inventory();arrivals();
+  chips();render();drawCart();
+})();
+</script>
+</body>
+</html>
